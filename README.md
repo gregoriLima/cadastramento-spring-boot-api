@@ -17,6 +17,19 @@
 - Exception handler
 - Test
 
+## Run the app
+
+    java -jar cadastramento-0.0.1-SNAPSHOT.jar
+    
+## get JWT (type Bearer)
+
+    curl --location --request POST 'http://localhost:8080/auth' \
+	--header 'content-Type: application/json' \
+	--data-raw '{
+	"email": "gregori@gmail.com",
+	"senha": "123456"
+	}'
+
 
 **Documentation**
 ----
