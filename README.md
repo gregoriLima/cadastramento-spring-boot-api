@@ -1,3 +1,4 @@
+
 # cadastramento-spring-boot-api
  Spring boot api create for FSBR
 
@@ -15,3 +16,13 @@
 - Bean Validation
 - Exception handler
 - Test
+
+
+**Documentation**
+----
+* **URL**
+  /swagger-ui.html
+  
+![](https://raw.githubusercontent.com/gregoriLima/cadastramento-spring-boot-api/main/src/main/resources/static/swagger.png)
+
+Grégori Fernandes de Lima
