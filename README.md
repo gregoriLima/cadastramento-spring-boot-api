@@ -33,7 +33,7 @@
 
 **Documentation**
 ----
-* **URL**
+* **endpoint**
   /swagger-ui.html
   
 ![](https://raw.githubusercontent.com/gregoriLima/cadastramento-spring-boot-api/main/src/main/resources/static/swagger.png)
