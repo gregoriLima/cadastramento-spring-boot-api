@@ -15,7 +15,7 @@ import br.com.fsbr.cadastramento.repository.UsuarioRepository;
 
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter { // filtro do Spring que é chamado uma vez só a cada requisição
 
-   private TokenService tokenService;
+    private TokenService tokenService;
     
     private UsuarioRepository repository;
     
@@ -36,7 +36,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter { // filtro
 		
 		if (tokenValido) {
 		    autenticarCliente(token);
-		}
+		} 
 		
 		filterChain.doFilter(request, response);
 		

@@ -1,8 +1,13 @@
 package br.com.fsbr.cadastramento.controller;
 
+import java.time.Instant;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,9 +52,18 @@ public class AutenticacaoController {
 		    return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
 		} 
 		catch (Exception e) {
+		    			
+				Map<String, Object> mapResponse = new LinkedHashMap<>();
+						mapResponse.put("timestamp", Instant.now().toString());
+						mapResponse.put("status", 401);
+						mapResponse.put("error", "Unauthorized");
+						mapResponse.put("message", "Authentication failed: bad credentials");
+						mapResponse.put("path", "/auth");
+					 
+			
+		   log.info("Erro ao autenticar " + dadosLogin.getName());
 		    
-		   log.info("Erro na ao autenticar " + dadosLogin.getName());
-		   return ResponseEntity.badRequest().build();
+		   return new ResponseEntity(mapResponse, HttpStatus.UNAUTHORIZED);
 		   
 		}
 		
