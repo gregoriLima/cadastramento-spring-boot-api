@@ -40,4 +40,19 @@
   
 ![](https://raw.githubusercontent.com/gregoriLima/cadastramento-spring-boot-api/main/src/main/resources/static/swagger.png)
 
+## Get API status
+
+### Request
+
+`POST /actuator/health`
+
+    curl --location --request GET 'http://localhost:8080/actuator/health'
+
+### Response
+
+    {
+    	"status": "UP"
+    }
+
+
 Grégori Fernandes de Lima
