@@ -16,7 +16,7 @@
 - DTO
 - Bean Validation
 - Exception handler
-- Test
+- Junit for Tests
 
 ## Run the app
 
