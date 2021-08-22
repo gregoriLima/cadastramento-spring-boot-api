@@ -53,6 +53,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	http.authorizeRequests()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.antMatchers(HttpMethod.GET, "/cadastro/estados").permitAll()
+		.antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable()  
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // definindo que não será utilizado session na autenticação

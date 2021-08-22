@@ -8,6 +8,7 @@
 - Security
 - Stateless Authentication using JWT
 - Documentation using SpringFox Swagger
+- Monitoring with Actuator
 - JPA
 - MySQL
 - REST
