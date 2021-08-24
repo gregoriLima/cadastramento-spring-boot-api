@@ -50,10 +50,20 @@ public class CadastramentoController {
 	}
 
 	@Transactional
-	@GetMapping("/{id}")
-	public ResponseEntity<PessoaFisicaDTO> consuta(@PathVariable Long id) {
+	@GetMapping(value = {"/{cpf}", "/{nome}"})
+	public ResponseEntity<PessoaFisicaDTO> consulta(
+			@PathVariable (value = "cpf", required = false) String cpf,
+			@PathVariable (value = "nome", required = false) String nome) {
 
-		Optional<PessoaFisica> pf = pessoaFisicaRepository.findById(id);
+		Optional<PessoaFisica> pf = Optional.empty();
+		
+		if(cpf != null) {
+			pf = pessoaFisicaRepository.findByCpf(cpf);
+		} else
+			if(nome != null) {
+				pf = pessoaFisicaRepository.findByNome(nome);
+			}
+		
 
 		if (pf.isPresent()) {
 			return ResponseEntity.ok(new PessoaFisicaDTO(pf.get()));
@@ -78,6 +88,7 @@ public class CadastramentoController {
 
 	}
 
+	
 	@Transactional
 	@PostMapping
 	@CacheEvict(value = "listaDePessoaFisica", allEntries = true)

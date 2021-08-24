@@ -10,6 +10,15 @@ public class PessoaFisicaDTO {
 	private Estados estado;
 	private String cidade;
 	
+	public PessoaFisicaDTO(Long id, String nome, String cpf, Estados estado, String cidade) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.estado = estado;
+		this.cidade = cidade;
+	}
+
 	public PessoaFisicaDTO(PessoaFisica pf) {
 		this.id = pf.getId();
 		this.nome = pf.getNome();
