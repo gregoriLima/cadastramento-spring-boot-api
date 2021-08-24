@@ -55,9 +55,6 @@ public class CadastramentoController {
 			@PathVariable (value = "cpf", required = false) String cpf,
 			@PathVariable (value = "nome", required = false) String nome) {
 
-		System.out.println("cpf  >>  " + cpf);
-		System.out.println("nome  >>  " + nome);
-		
 		Optional<PessoaFisica> pf = Optional.empty();
 		
 		if(cpf != null) {
