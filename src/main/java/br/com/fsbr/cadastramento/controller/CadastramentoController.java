@@ -50,11 +50,14 @@ public class CadastramentoController {
 	}
 
 	@Transactional
-	@GetMapping(value = {"/{cpf}", "/{nome}"})
+	@GetMapping(value = {"/cpf/{cpf}", "/nome/{nome}"})
 	public ResponseEntity<PessoaFisicaDTO> consulta(
 			@PathVariable (value = "cpf", required = false) String cpf,
 			@PathVariable (value = "nome", required = false) String nome) {
 
+		System.out.println("cpf  >>  " + cpf);
+		System.out.println("nome  >>  " + nome);
+		
 		Optional<PessoaFisica> pf = Optional.empty();
 		
 		if(cpf != null) {

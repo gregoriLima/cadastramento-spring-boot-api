@@ -18,6 +18,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @RestControllerAdvice
@@ -81,4 +82,19 @@ public class ErroDeValidacaoHandler{
 	       return response;
 		}
 
+		
+		
+		// método caso os parâmetros sejam passados incorretamente
+		@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+		@ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE)
+		public Map<String, String> handle(HttpRequestMethodNotSupportedException exception) {
+
+		   String genericMessage = "Erro de parâmetros: " + exception.getMessage();
+	        	        
+	       Map<String, String> response = new HashMap<>();
+	       response.put("title", "WRONG PARAMETERS");
+	       response.put("message", genericMessage);
+	       
+	       return response;
+		}
 }
