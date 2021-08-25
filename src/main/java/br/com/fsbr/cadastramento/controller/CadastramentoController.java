@@ -114,6 +114,8 @@ public class CadastramentoController {
 
 		return ResponseEntity.ok(new PessoaFisicaDTO(pf));
 	}
+	
+	
 
 	@DeleteMapping("/{id}")
 	@Transactional
