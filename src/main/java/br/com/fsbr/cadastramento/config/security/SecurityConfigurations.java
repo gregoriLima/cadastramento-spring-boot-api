@@ -1,5 +1,8 @@
 package br.com.fsbr.cadastramento.config.security;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.com.fsbr.cadastramento.repository.UsuarioRepository;
 
@@ -43,21 +49,29 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	 // dizendo onde está a lógica para autenticação e o algorítimo de hash para a senha
 	auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
-	
+
  }
 
  // configurações de acesso aos endpoints
  @Override
- protected void configure(HttpSecurity http) throws Exception {
-
-	http.authorizeRequests()
+ protected void configure(HttpSecurity httpSecurity) throws Exception {
+	
+	 httpSecurity.authorizeRequests()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.antMatchers(HttpMethod.GET, "/cadastro/estados").permitAll()
 		.antMatchers(HttpMethod.GET, "/actuator/health").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable()  
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // definindo que não será utilizado session na autenticação
-		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class); }
+		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
+		.cors().configurationSource(request -> { // habilitando cors config para testes em dev
+		      var cors = new CorsConfiguration();
+		      cors.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:80", "http://example.com"));
+		      cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
+		      cors.setAllowedHeaders(List.of("*"));
+		      return cors;
+		    }); 
+ }
  
 	 // configurações de recursos estáticos
 	 @Override
@@ -67,4 +81,6 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 			web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
 			
 	 }
+	 
+	
 }
