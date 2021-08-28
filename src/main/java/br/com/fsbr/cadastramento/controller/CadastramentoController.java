@@ -54,28 +54,29 @@ public class CadastramentoController {
 
 	@Transactional
 	@GetMapping(value = {"/cpf/{cpf}", "/nome/{nome}"})
-	public ResponseEntity<PessoaFisicaDTO> consulta(
+	public ResponseEntity<List<PessoaFisicaDTO>> consulta(
 			@PathVariable (value = "cpf", required = false) String cpf,
 			@PathVariable (value = "nome", required = false) String nome) {
 
-//		Optional<List<PessoaFisica>> pf = Optional.empty();
-		Optional<PessoaFisica> pf = Optional.empty();
+		Optional<List<PessoaFisica>> pf = Optional.empty();
+//		Optional<PessoaFisica> pf = Optional.empty();
 		
 		if(cpf != null) {
-//			pf = pessoaFisicaRepository.findByCpfContainingIgnoreCase(cpf);
-			pf = pessoaFisicaRepository.findByCpf(cpf);
+			pf = pessoaFisicaRepository.findByCpfContainingIgnoreCase(cpf);
+//			pf = pessoaFisicaRepository.findByCpf(cpf);
 		}
 		if(nome != null && pf.isEmpty()) {
-//			pf = pessoaFisicaRepository.findByNomeContainingIgnoreCase(nome);	
-			pf = pessoaFisicaRepository.findByNome(nome);	
+			pf = pessoaFisicaRepository.findByNomeContainingIgnoreCase(nome);	
+//			pf = pessoaFisicaRepository.findByNome(nome);	
 		}
 		
 
 		if (pf.isPresent()) {
-			return ResponseEntity.ok(new PessoaFisicaDTO(pf.get()));
-//			var x = pf.get().stream().map(PessoaFisicaDTO::new).collect(Collectors.toList());
-//			System.out.println(x);
-//			return ResponseEntity.ok(x);
+//			return ResponseEntity.ok(new PessoaFisicaDTO(pf.get()));
+//			System.out.println(pf.get());
+			var x = pf.get().stream().map(PessoaFisicaDTO::new).collect(Collectors.toList());
+			System.out.println(x);
+			return ResponseEntity.ok(x);
 		}
 
 		return ResponseEntity.notFound().build(); 

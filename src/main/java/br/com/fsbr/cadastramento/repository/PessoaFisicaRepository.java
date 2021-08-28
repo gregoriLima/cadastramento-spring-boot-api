@@ -11,10 +11,10 @@ import br.com.fsbr.cadastramento.model.PessoaFisicaDTO;
 
 public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Long>{
 	
-//	Optional<List<PessoaFisica>> findByCpfContainingIgnoreCase(String cpf);
+	Optional<List<PessoaFisica>> findByCpfContainingIgnoreCase(String cpf);
 	Optional<PessoaFisica> findByCpf(String cpf);
 	
-//	Optional<List<PessoaFisica>> findByNomeContainingIgnoreCase(String nome);
+	Optional<List<PessoaFisica>> findByNomeContainingIgnoreCase(String nome);
 	Optional<PessoaFisica> findByNome(String nome);
 	
 //	@Query("SELECT new br.com.fsbr.cadastramento.model.PessoaFisicaDTO FROM PessoaFisica")
