@@ -1,6 +1,8 @@
 package br.com.fsbr.cadastramento.config.security;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,10 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter { // filtro
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 	    throws ServletException, IOException {
 		
+    	System.out.println("\nrequisitado: " + new Date().toLocaleString());
+    	System.out.println(request.getRemoteAddr());
+    	System.out.println("requested URL: " + request.getRequestURL());
+    	
 		String token = recuperarToken(request);
 		
 		boolean tokenValido = tokenService.isTokenValido(token);

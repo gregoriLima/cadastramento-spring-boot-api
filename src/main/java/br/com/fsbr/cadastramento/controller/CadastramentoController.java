@@ -4,9 +4,12 @@
 package br.com.fsbr.cadastramento.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -55,21 +58,27 @@ public class CadastramentoController {
 			@PathVariable (value = "cpf", required = false) String cpf,
 			@PathVariable (value = "nome", required = false) String nome) {
 
+//		Optional<List<PessoaFisica>> pf = Optional.empty();
 		Optional<PessoaFisica> pf = Optional.empty();
 		
 		if(cpf != null) {
+//			pf = pessoaFisicaRepository.findByCpfContainingIgnoreCase(cpf);
 			pf = pessoaFisicaRepository.findByCpf(cpf);
-		} else
-			if(nome != null) {
-				pf = pessoaFisicaRepository.findByNome(nome);
-			}
+		}
+		if(nome != null && pf.isEmpty()) {
+//			pf = pessoaFisicaRepository.findByNomeContainingIgnoreCase(nome);	
+			pf = pessoaFisicaRepository.findByNome(nome);	
+		}
 		
 
 		if (pf.isPresent()) {
 			return ResponseEntity.ok(new PessoaFisicaDTO(pf.get()));
+//			var x = pf.get().stream().map(PessoaFisicaDTO::new).collect(Collectors.toList());
+//			System.out.println(x);
+//			return ResponseEntity.ok(x);
 		}
 
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.notFound().build(); 
 
 	}
 
@@ -99,7 +108,9 @@ public class CadastramentoController {
 		pessoaFisicaRepository.save(pf);
 		
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(pf.getId()).toUri();
+		
 		return ResponseEntity.created(uri).body(new PessoaFisicaDTO(pf));
+		
 	}
 	
 	

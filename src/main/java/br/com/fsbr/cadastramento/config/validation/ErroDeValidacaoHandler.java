@@ -74,8 +74,7 @@ public class ErroDeValidacaoHandler{
 		public Map<String, String> handle(SQLIntegrityConstraintViolationException exception) {
 
 		   String genericMessage = "Erro de persistência dos dados: " + exception.getMessage();
-	        	        
-	       Map<String, String> response = new HashMap<>();
+		   Map<String, String> response = new HashMap<>();
 	       response.put("title", "CONFLICT");
 	       response.put("message", genericMessage);
 	       
