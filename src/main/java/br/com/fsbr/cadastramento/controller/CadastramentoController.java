@@ -54,7 +54,7 @@ public class CadastramentoController {
 
 	@Transactional
 	@GetMapping(value = {"/cpf/{cpf}", "/nome/{nome}"})
-	public ResponseEntity<List<PessoaFisicaDTO>> consulta(
+	public <Type> Type consulta(
 			@PathVariable (value = "cpf", required = false) String cpf,
 			@PathVariable (value = "nome", required = false) String nome) {
 
@@ -62,19 +62,21 @@ public class CadastramentoController {
 		
 		if(cpf != null) {
 			pf = pessoaFisicaRepository.findByCpfContainingIgnoreCase(cpf);
+			if (pf.isPresent() && !pf.get().isEmpty()) {
+				System.out.println(pf);
+				List<PessoaFisicaDTO> x = pf.get().stream().map(PessoaFisicaDTO::new).collect(Collectors.toList());
+				return (Type) ResponseEntity.ok(x.get(0));
+			}
 		}
 		if(nome != null && pf.isEmpty()) {
-			pf = pessoaFisicaRepository.findByNomeContainingIgnoreCase(nome);	
+			pf = pessoaFisicaRepository.findByNomeContainingIgnoreCase(nome);
+			if (pf.isPresent() && !pf.get().isEmpty()) {
+				var x = pf.get().stream().map(PessoaFisicaDTO::new).collect(Collectors.toList());
+				return (Type) ResponseEntity.ok(x);
+			}
 		}
 		
-
-		if (pf.isPresent()) {
-			var x = pf.get().stream().map(PessoaFisicaDTO::new).collect(Collectors.toList());
-			System.out.println(x);
-			return ResponseEntity.ok(x);
-		}
-
-		return ResponseEntity.notFound().build(); 
+		return (Type) ResponseEntity.notFound().build(); 
 
 	}
 
