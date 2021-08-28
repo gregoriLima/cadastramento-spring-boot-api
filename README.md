@@ -46,7 +46,7 @@
 
 `GET /actuator/health`
 
-    curl --location --request GET 'http://localhost:8080/actuator/health'
+    curl --location --request GET 'http://desafiofsbr.ddns.net:8080/actuator/health'
 
 ### Response
 
