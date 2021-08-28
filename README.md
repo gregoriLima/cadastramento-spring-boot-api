@@ -22,7 +22,7 @@
 
     java -jar cadastramento-0.0.1-SNAPSHOT.jar
     
-## get JWT (type Bearer)
+## request JWT (type Bearer)
 
     curl --location --request POST 'http://desafiofsbr.ddns.net:8080/auth' \
 	--header 'content-Type: application/json' \
