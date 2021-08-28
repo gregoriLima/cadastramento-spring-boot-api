@@ -24,7 +24,7 @@
     
 ## get JWT (type Bearer)
 
-    curl --location --request POST 'http://localhost:8080/auth' \
+    curl --location --request POST 'http://desafiofsbr.ddns.net:8080/auth' \
 	--header 'content-Type: application/json' \
 	--data-raw '{
 	"email": "gregori@gmail.com",
