@@ -22,9 +22,9 @@
 
     java -jar cadastramento-0.0.1-SNAPSHOT.jar
     
-## get JWT (type Bearer)
+## request JWT (type Bearer)
 
-    curl --location --request POST 'http://localhost:8080/auth' \
+    curl --location --request POST 'http://desafiofsbr.ddns.net:8080/auth' \
 	--header 'content-Type: application/json' \
 	--data-raw '{
 	"email": "gregori@gmail.com",
@@ -46,7 +46,7 @@
 
 `GET /actuator/health`
 
-    curl --location --request GET 'http://localhost:8080/actuator/health'
+    curl --location --request GET 'http://desafiofsbr.ddns.net:8080/actuator/health'
 
 ### Response
 
