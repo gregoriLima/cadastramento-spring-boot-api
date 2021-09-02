@@ -31,7 +31,11 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter { // filtro
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 	    throws ServletException, IOException {
-			
+		
+    	System.out.println("\nrequisitado: " + new Date().toLocaleString());
+    	System.out.println(request.getRemoteAddr());
+    	System.out.println("requested URL: " + request.getRequestURL());
+    	
 		String token = recuperarToken(request);
 		
 		boolean tokenValido = tokenService.isTokenValido(token);
