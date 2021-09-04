@@ -66,7 +66,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
 		.cors().configurationSource(request -> { // habilitando cors config para testes em dev
 		      var cors = new CorsConfiguration();
-		      cors.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:80", "http://example.com"));
+		      cors.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:80", "http://desafiofsbr.ddns.net"));
 		      cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
 		      cors.setAllowedHeaders(List.of("*"));
 		      return cors;
